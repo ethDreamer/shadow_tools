@@ -7,7 +7,7 @@ These scripts facilitate the creation of audio and video samples for language sh
 3. **Practice the transitions between segments**
 4. **Practice the entire sample**
 
-The purpose of these scripts is to automate the creation of practice audio and video clips that guide you through these steps. The audio will play in a structured order to help you master each segment and transition smoothly to the next.
+The purpose of these scripts is to automate the creation of practice audio and video clips that guide you through these steps. The audio will play in a structured order to help you master each segment and transition smoothly to the next. The videos created by this tool are ideal to put on your phone especially if you have a video player app that will rewind 10 seconds by left tapping the screen (vlc will do this).
 
 <p align="center">
   <img src="src/shadow.png" alt="Shadowing">
@@ -23,21 +23,21 @@ The purpose of these scripts is to automate the creation of practice audio and v
 ## Setup
 
 1. **Clone the repository:**
-    ```sh
-    git clone https://github.com/ethDreamer/shadow_tools
-    cd shadow_tools
-    ```
+```sh
+git clone https://github.com/ethDreamer/shadow_tools
+cd shadow_tools
+```
 
 2. **Set up a virtual environment:**
-    ```sh
-    python -m venv venv
-    source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
-    ```
+```sh
+python -m venv venv
+source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+```
 
 3. **Install dependencies:**
-    ```sh
-    pip install -r requirements.txt
-    ```
+```sh
+pip install -r requirements.txt
+```
 
 Note: If you want to create videos, you need to install FFmpeg. Follow the [FFmpeg installation instructions](https://ffmpeg.org/download.html).
 
@@ -71,9 +71,11 @@ Note: If you want to create videos, you need to install FFmpeg. Follow the [FFmp
 
 To create both audio and video samples, use the `shadow.py` script.
 
-    ```sh
-    python shadow.py <audio_file> <timestamps_file> <image_path> --audio_output_file <audio_output_file> --video_output_file <video_output_file> --repeat_count <count> --min_time <seconds> --mode <1|2> --resolution <resolution>
-    ```
+```sh
+python shadow.py <audio_file> <timestamps_file> <image_path> --audio_output_file <audio_output_file> --video_output_file <video_output_file> --repeat_count <count> --min_time <seconds> --mode <1|2> --resolution <resolution>
+```
+
+Note: When choosing the duration for repeating splits, a min_time value of 21 or 31 seconds tends to work well. This allows you to easily repeat the entire segment by tapping the left side of your phone screen a few times.
 
 - `audio_file`: Path to the input audio file (optional if output audio file already exists).
 - `timestamps_file`: Path to the file with timestamps.
@@ -91,9 +93,9 @@ To create both audio and video samples, use the `shadow.py` script.
 
 To create only audio samples for shadowing practice, use the `audio_creation.py` script.
 
-    ```sh
-    python audio_creation.py <audio_file> <timestamps_file> <output_file> --repeat_count <count> --min_time <seconds> --mode <1|2>
-    ```
+```sh
+python audio_creation.py <audio_file> <timestamps_file> <output_file> --repeat_count <count> --min_time <seconds> --mode <1|2>
+```
 
 - `audio_file`: Path to the input audio file.
 - `timestamps_file`: Path to the file with timestamps.
@@ -106,9 +108,9 @@ To create only audio samples for shadowing practice, use the `audio_creation.py`
 
 To create a video sample from an audio clip and a single image, use the `video_creation.py` script.
 
-    ```sh
-    python video_creation.py <image_path> <audio_path> <output_path> --resolution <resolution>
-    ```
+```sh
+python video_creation.py <image_path> <audio_path> <output_path> --resolution <resolution>
+```
 
 - `image_path`: Path to the input image file.
 - `audio_path`: Path to the input audio file.
