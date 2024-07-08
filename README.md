@@ -1,7 +1,18 @@
-
 # Shadowing Practice Scripts
 
-These scripts help you create audio and video samples for language shadowing practice. Shadowing is a technique where you listen to audio and repeat it immediately to improve your language skills.
+These scripts facilitate the creation of audio and video samples for language shadowing practice. Mastering a new piece of shadowing content can be tricky when starting from scratch but it's much easier when broken down into manageable steps:
+
+1. **Divide the audio into segments (splits)**
+2. **Practice each segment individually**
+3. **Practice the transitions between segments**
+4. **Practice the entire sample**
+
+The purpose of these scripts is to automate the creation of practice audio and video clips that guide you through these steps. The audio will play in a structured order to help you master each segment and transition smoothly to the next.
+
+<p align="center">
+  <img src="src/shadow.png" alt="Shadowing">
+</p>
+
 
 ## Requirements
 

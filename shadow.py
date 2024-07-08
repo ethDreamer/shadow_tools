@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import argparse
 import os
+from pydub import AudioSegment
 from src.utils import load_timestamps, split_audio, repeat_chunks, repeat_chunks_to_min_time, generate_transition_chunks, generate_transition_chunks_to_min_time, save_audio, create_video, validate_args
 
 def process_audio(args):
