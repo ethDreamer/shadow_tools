@@ -7,6 +7,7 @@ These scripts help you create audio and video samples for language shadowing pra
 
 - **Python**: [Download and install Python](https://www.python.org/downloads/).
 - **FFmpeg** (optional, required only for video creation): [Download and install FFmpeg](https://ffmpeg.org/download.html).
+- **Audacity**: [Download and install Audacity](https://www.audacityteam.org/download/).
 
 ## Setup
 
@@ -31,35 +32,31 @@ Note: If you want to create videos, you need to install FFmpeg. Follow the [FFmp
 
 ## Basic Usage
 
-### Create Audio Samples
+### Step 1: Generate Timestamps with Audacity
 
-To create audio samples for shadowing practice, use the `audio_creation.py` script.
+### Open Your Audio File in Audacity:
 
-    ```sh
-    python audio_creation.py <audio_file> <timestamps_file> <output_file> --repeat_count <count> --min_time <seconds> --mode <1|2>
-    ```
+1. Open Audacity.
+2. Go to File > Open and select your audio file.
 
-- `audio_file`: Path to the input audio file.
-- `timestamps_file`: Path to the file with timestamps.
-- `output_file`: Path to save the output audio file.
-- `--repeat_count <count>`: Number of repetitions for each chunk (optional, specify either this or `--min_time`).
-- `--min_time <seconds>`: Minimum time (in seconds) for each chunk (optional, specify either this or `--repeat_count`).
-- `--mode <1|2>`: Mode for repeating (1 for each sentence, 2 for sentence pairs).
+### Play and Identify Split Points:
 
-### Create Video Samples
+1. Play the audio and listen carefully to identify where you want to split the audio into sentences or chunks.
+2. You can use the Spacebar to play/pause and Left Arrow/Right Arrow keys to move back and forth in the audio.
 
-To create a video sample from an audio clip and a single image, use the `video_creation.py` script.
+### Add Labels at Split Points:
 
-    ```sh
-    python video_creation.py <image_path> <audio_path> <output_path> --resolution <resolution>
-    ```
+1. Click on the waveform at the point where you want to split the audio.
+2. Go to Edit > Labels > Add Label at Selection (or press `Ctrl+B` on Windows or `Cmd+B` on Mac).
+3. A label track will appear below the waveform. Type a short description or just press Enter to create the label.
+4. Repeat this process for each split point. Each label marks the beginning of a new chunk.
 
-- `image_path`: Path to the input image file.
-- `audio_path`: Path to the input audio file.
-- `output_path`: Path to the output video file.
-- `--resolution <resolution>`: Desired video resolution (e.g., `1920x1080`, `1280x720`, or `native`).
+### Export the Labels:
 
-### Create Both Audio and Video Samples
+1. Once you have labeled all your split points, ensure the labels track is selected, then go to File > Export > Export Labels.
+2. Save the label file to whatever name you'd like (e.g. `splits.txt`).
+
+### Step 2: Create Audio and Video Samples
 
 To create both audio and video samples, use the `shadow.py` script.
 
@@ -77,10 +74,35 @@ To create both audio and video samples, use the `shadow.py` script.
 - `--mode <1|2>`: Mode for repeating (1 for each sentence, 2 for sentence pairs).
 - `--resolution <resolution>`: Desired video resolution (e.g., `1920x1080`, `1280x720`, or `native`).
 
-## Notes
+## Additional Scripts
 
-- **FFmpeg Installation**: If you want to create videos, you need to install FFmpeg. Follow the [FFmpeg installation instructions](https://ffmpeg.org/download.html).
-- **Dependencies**: The scripts are designed to conditionally import FFmpeg only if video creation is required, so you don't need to install FFmpeg if you only want to use the `audio_creation.py` script.
+### Create Audio Samples Only
+
+To create only audio samples for shadowing practice, use the `audio_creation.py` script.
+
+    ```sh
+    python audio_creation.py <audio_file> <timestamps_file> <output_file> --repeat_count <count> --min_time <seconds> --mode <1|2>
+    ```
+
+- `audio_file`: Path to the input audio file.
+- `timestamps_file`: Path to the file with timestamps.
+- `output_file`: Path to save the output audio file.
+- `--repeat_count <count>`: Number of repetitions for each chunk (optional, specify either this or `--min_time`).
+- `--min_time <seconds>`: Minimum time (in seconds) for each chunk (optional, specify either this or `--repeat_count`).
+- `--mode <1|2>`: Mode for repeating (1 for each sentence, 2 for sentence pairs).
+
+### Create Video Samples Only
+
+To create a video sample from an audio clip and a single image, use the `video_creation.py` script.
+
+    ```sh
+    python video_creation.py <image_path> <audio_path> <output_path> --resolution <resolution>
+    ```
+
+- `image_path`: Path to the input image file.
+- `audio_path`: Path to the input audio file.
+- `output_path`: Path to the output video file.
+- `--resolution <resolution>`: Desired video resolution (e.g., `1920x1080`, `1280x720`, or `native`).
 
 ## License
 
