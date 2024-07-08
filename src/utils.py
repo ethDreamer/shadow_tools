@@ -1,6 +1,4 @@
 #!/usr/bin/env python3
-import argparse
-from pydub import AudioSegment
 
 def load_timestamps(file_path):
     with open(file_path, 'r') as file:
@@ -8,6 +6,7 @@ def load_timestamps(file_path):
     return timestamps
 
 def split_audio(audio_file, timestamps):
+    from pydub import AudioSegment
     audio = AudioSegment.from_file(audio_file)
     chunks = [audio[timestamps[i]*1000:timestamps[i+1]*1000] for i in range(len(timestamps) - 1)]
     return chunks
@@ -46,40 +45,33 @@ def validate_args(args):
     if args.repeat_count is None and args.min_time is None:
         raise ValueError("You must specify one of repeat_count or min_time.")
 
-def process_audio(args):
-    timestamps = load_timestamps(args.timestamps_file)
-    audio = AudioSegment.from_file(args.audio_file)
+# Video-related functions
+def create_video(image_path, audio_path, output_path, resolution):
+    import ffmpeg  # Conditional import
+    # Probe the audio file to get its duration
+    audio_info = ffmpeg.probe(audio_path)
+    audio_duration = audio_info['format']['duration']
     
-    # Add start and end time to timestamps
-    timestamps = [0] + timestamps + [len(audio) / 1000]
-    chunks = split_audio(args.audio_file, timestamps)
+    # Create the FFmpeg input streams
+    image_input = ffmpeg.input(image_path, loop=1, t=audio_duration)
+    audio_input = ffmpeg.input(audio_path)
     
-    if args.mode == 1:
-        if args.repeat_count is not None:
-            processed_chunks = repeat_chunks(chunks, args.repeat_count)
-        else:
-            processed_chunks = repeat_chunks_to_min_time(chunks, args.min_time)
-    elif args.mode == 2:
-        if args.repeat_count is not None:
-            processed_chunks = generate_transition_chunks(chunks, args.repeat_count)
-        else:
-            processed_chunks = generate_transition_chunks_to_min_time(chunks, args.min_time)
-
-    save_audio(processed_chunks, args.output_file)
-
-def main():
-    parser = argparse.ArgumentParser(description='Generate shadowing practice tracks.')
-    parser.add_argument('audio_file', type=str, help='Path to the input audio file')
-    parser.add_argument('timestamps_file', type=str, help='Path to the file with timestamps')
-    parser.add_argument('output_file', type=str, help='Path to save the output audio file')
-    parser.add_argument('--repeat_count', type=int, help='Number of repetitions for each chunk')
-    parser.add_argument('--min_time', type=int, help='Minimum time (in seconds) for each chunk')
-    parser.add_argument('--mode', type=int, choices=[1, 2], default=1, help='1: Repeat each sentence, 2: Repeat sentence pairs')
-
-    args = parser.parse_args()
-    validate_args(args)
-    process_audio(args)
-
-if __name__ == '__main__':
-    main()
-
+    # Define the scaling filter based on the resolution
+    if resolution == 'native':
+        video_stream = image_input
+    else:
+        width, height = resolution.split('x')
+        video_stream = image_input.filter('scale', width, height)
+    
+    # Construct the FFmpeg command with scaling if needed
+    (
+        ffmpeg
+        .output(video_stream, audio_input, output_path,
+                vcodec='libx264',  # Use H.264 video codec
+                tune='stillimage',  # Optimize for still images
+                acodec='aac',  # Use AAC audio codec
+                audio_bitrate='128k',  # Set audio bitrate to 128kbps
+                pix_fmt='yuv420p',  # Set pixel format to YUV 4:2:0
+                shortest=None)  # Ensure the video is as long as the shortest input (audio in this case)
+        .run()
+    )
