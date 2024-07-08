@@ -31,7 +31,7 @@ def main():
     parser.add_argument('output_file', type=str, help='Path to save the output audio file')
     parser.add_argument('--repeat_count', type=int, help='Number of repetitions for each chunk')
     parser.add_argument('--min_time', type=int, help='Minimum time (in seconds) for each chunk')
-    parser.add_argument('--mode', type=int, choices=[1, 2], default=1, help='1: Repeat each sentence, 2: Repeat sentence pairs')
+    parser.add_argument('--mode', type=int, choices=[1, 2], default=1, help='1: Repeat each split, 2: Repeat split pairs')
 
     args = parser.parse_args()
     validate_args(args)

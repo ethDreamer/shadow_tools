@@ -52,7 +52,7 @@ Note: If you want to create videos, you need to install FFmpeg. Follow the [FFmp
 
 ### Play and Identify Split Points:
 
-1. Play the audio and listen carefully to identify where you want to split the audio into sentences or chunks.
+1. Play the audio and listen carefully to identify where you want to split the audio into chunks (splits).
 2. You can use the Spacebar to play/pause and Left Arrow/Right Arrow keys to move back and forth in the audio.
 
 ### Add Labels at Split Points:
@@ -84,7 +84,7 @@ Note: When choosing the duration for repeating splits, a min_time value of 21 or
 - `--video_output_file <video_output_file>`: Path to save the output video file (default: `single<resolution>.mp4` or `pairs<resolution>.mp4`).
 - `--repeat_count <count>`: Number of repetitions for each chunk (optional, specify either this or `--min_time`).
 - `--min_time <seconds>`: Minimum time (in seconds) for each chunk (optional, specify either this or `--repeat_count`).
-- `--mode <1|2>`: Mode for repeating (1 for each sentence, 2 for sentence pairs).
+- `--mode <1|2>`: Mode for repeating (1 for each split, 2 for split pairs).
 - `--resolution <resolution>`: Desired video resolution (e.g., `1920x1080`, `1280x720`, or `native`).
 
 ## Additional Scripts
@@ -102,7 +102,7 @@ python audio_creation.py <audio_file> <timestamps_file> <output_file> --repeat_c
 - `output_file`: Path to save the output audio file.
 - `--repeat_count <count>`: Number of repetitions for each chunk (optional, specify either this or `--min_time`).
 - `--min_time <seconds>`: Minimum time (in seconds) for each chunk (optional, specify either this or `--repeat_count`).
-- `--mode <1|2>`: Mode for repeating (1 for each sentence, 2 for sentence pairs).
+- `--mode <1|2>`: Mode for repeating (1 for each split, 2 for split pairs).
 
 ### Create Video Samples Only
 
