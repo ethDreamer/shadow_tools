@@ -12,8 +12,8 @@ These scripts help you create audio and video samples for language shadowing pra
 
 1. **Clone the repository:**
     ```sh
-    git clone <repository-url>
-    cd <repository-directory>
+    git clone https://github.com/ethDreamer/shadow_tools
+    cd shadow_tools
     ```
 
 2. **Set up a virtual environment:**
